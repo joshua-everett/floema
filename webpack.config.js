@@ -11,6 +11,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'dev';
 
 const dirApp = path.join(__dirname, 'app');
+const dirAssets = path.join(__dirname, 'assets');
 const dirShared = path.join(__dirname, 'shared');
 const dirStyles = path.join(__dirname, 'styles');
 const dirNode = 'node_modules';
@@ -19,7 +20,7 @@ module.exports = {
   entry: [path.join(dirApp, 'index.js'), path.join(dirStyles, 'index.scss')],
 
   resolve: {
-    modules: [dirApp, dirShared, dirStyles, dirNode],
+    modules: [dirApp, dirAssets, dirShared, dirStyles, dirNode],
   },
 
   plugins: [
@@ -42,6 +43,7 @@ module.exports = {
 
     new ImageMinimizerPlugin({
       minimizerOptions: {
+        implementation: ImageMinimizerPlugin.imageminMinify,
         plugins: [
           // interlaced: Interlace gif for progressive rendering.
           ['gifsicle', { interlaced: true }],

@@ -15,7 +15,7 @@ const port = process.env.PORT || 8005;
 
 const Prismic = require('@prismicio/client');
 const PrismicH = require('@prismicio/helpers');
-const { application } = require('express');
+const { application, response } = require('express');
 const UAParser = require('ua-parser-js');
 
 app.use(logger('dev'));
@@ -94,7 +94,7 @@ const handleRequest = async (api) => {
       }),
     ]);
 
-  console.log(about, home, collections, preloader, meta);
+  //console.log(collections, home,);
 
   const assets = [];
 
@@ -159,6 +159,8 @@ app.get('/collections', async (req, res) => {
 });
 
 app.get('/detail/:uid', async (req, res) => {
+  console.log('REQUEST');
+
   const api = await initApi(req);
   const defaults = await handleRequest(api);
 
